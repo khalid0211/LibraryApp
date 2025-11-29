@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyBooks</string>
+    <!-- Google Web Client ID for Firebase Authentication -->
+    <string name="google_web_client_id">393895929669-i7h4es7ob2vd1tv4hcimqf5lsm1g0tsh.apps.googleusercontent.com</string>
+</resources>

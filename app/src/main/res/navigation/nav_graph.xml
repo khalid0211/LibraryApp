@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_dashboard">
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.mybooks.ui.dashboard.DashboardFragment"
+        android:label="Dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_books"
+        android:name="com.example.mybooks.ui.books.BooksFragment"
+        android:label="Books">
+        <action
+            android:id="@+id/action_books_to_add_book"
+            app:destination="@id/navigation_add_book" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_bookshelves"
+        android:name="com.example.mybooks.ui.bookshelves.BookshelvesFragment"
+        android:label="Bookshelves" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.mybooks.ui.profile.ProfileFragment"
+        android:label="Profile" />
+
+    <fragment
+        android:id="@+id/navigation_add_book"
+        android:name="com.example.mybooks.ui.addbook.AddBookFragment"
+        android:label="Add Book" />
+
+</navigation>
