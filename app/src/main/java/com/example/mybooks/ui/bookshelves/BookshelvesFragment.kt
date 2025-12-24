@@ -1,11 +1,14 @@
 package com.example.mybooks.ui.bookshelves
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,15 +16,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mybooks.R
 import com.example.mybooks.data.model.Bookshelf
 import com.example.mybooks.data.repository.BookshelfRepositoryImpl
+import com.example.mybooks.databinding.FragmentBookshelvesBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 
 class BookshelvesFragment : Fragment() {
 
+    private val binding: FragmentBookshelvesBinding by lazy { FragmentBookshelvesBinding.inflate(layoutInflater) }
+
     private lateinit var viewModel: BookshelvesViewModel
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var emptyView: View
-    private lateinit var fab: FloatingActionButton
+//    private lateinit var recyclerView: RecyclerView
+//    private lateinit var emptyView: View
+//    private lateinit var fab: TextView
     private lateinit var adapter: BookshelvesAdapter
 
     override fun onCreateView(
@@ -29,7 +35,8 @@ class BookshelvesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_bookshelves, container, false)
+        return binding.root
+        //return inflater.inflate(R.layout.fragment_bookshelves, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,9 +46,7 @@ class BookshelvesFragment : Fragment() {
         viewModel = BookshelvesViewModel(BookshelfRepositoryImpl())
 
         // Initialize views
-        recyclerView = view.findViewById(R.id.bookshelves_recycler_view)
-        emptyView = view.findViewById(R.id.empty_view)
-        fab = view.findViewById(R.id.fab_add_bookshelf)
+
 
         // Setup RecyclerView
         adapter = BookshelvesAdapter(
@@ -49,8 +54,8 @@ class BookshelvesFragment : Fragment() {
                 showDeleteConfirmation(bookshelf)
             }
         )
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = adapter
+        binding.bookshelvesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.bookshelvesRecyclerView.adapter = adapter
 
         // Setup observers
         setupObservers()
@@ -59,7 +64,7 @@ class BookshelvesFragment : Fragment() {
         viewModel.loadBookshelves()
 
         // Setup FAB
-        fab.setOnClickListener {
+        binding.fabAddBookshelf.setOnClickListener {
             showAddBookshelfDialog()
         }
     }
@@ -68,11 +73,12 @@ class BookshelvesFragment : Fragment() {
         viewModel.bookshelves.observe(viewLifecycleOwner) { bookshelves ->
             adapter.submitList(bookshelves)
             if (bookshelves.isEmpty()) {
-                recyclerView.visibility = View.GONE
-                emptyView.visibility = View.VISIBLE
+                binding.bookshelvesRecyclerView.visibility = View.GONE
+                binding.emptyView.visibility = View.VISIBLE
             } else {
-                recyclerView.visibility = View.VISIBLE
-                emptyView.visibility = View.GONE
+                binding.bookshelvesRecyclerView.visibility = View.VISIBLE
+                binding.emptyView.visibility = View.GONE
+                binding.progressBar.visibility= View.GONE
             }
         }
 
@@ -97,15 +103,16 @@ class BookshelvesFragment : Fragment() {
         val dialogView = LayoutInflater.from(requireContext())
             .inflate(R.layout.dialog_add_bookshelf, null)
 
-        val shelfIdInput = dialogView.findViewById<TextInputEditText>(R.id.shelf_id_input)
-        val titleInput = dialogView.findViewById<TextInputEditText>(R.id.title_input)
-        val descriptionInput = dialogView.findViewById<TextInputEditText>(R.id.description_input)
-        val cancelButton = dialogView.findViewById<Button>(R.id.cancel_button)
-        val saveButton = dialogView.findViewById<Button>(R.id.save_button)
+        val shelfIdInput = dialogView.findViewById<EditText>(R.id.shelf_id_input)
+        val titleInput = dialogView.findViewById<EditText>(R.id.title_input)
+        val descriptionInput = dialogView.findViewById<EditText>(R.id.description_input)
+        val cancelButton = dialogView.findViewById<TextView>(R.id.cancel_button)
+        val saveButton = dialogView.findViewById<TextView>(R.id.save_button)
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
             .create()
+        dialog.window?.setBackgroundDrawableResource(R.drawable.rounded_dialogue)
 
         cancelButton.setOnClickListener {
             dialog.dismiss()
@@ -117,20 +124,21 @@ class BookshelvesFragment : Fragment() {
             val description = descriptionInput.text.toString().trim()
 
             if (shelfIdText.isEmpty()) {
-                shelfIdInput.error = "Shelf ID is required"
+                Toast.makeText(requireContext(), "Shelf ID is required", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             val shelfId = shelfIdText.toIntOrNull()
             if (shelfId == null || shelfId <= 0) {
-                shelfIdInput.error = "Shelf ID must be a positive number"
+                Toast.makeText(requireContext(), "Shelf ID must be a positive number", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (title.isEmpty()) {
-                titleInput.error = "Title is required"
+                Toast.makeText(requireContext(), "Title is required", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
 
             val bookshelf = Bookshelf(
                 shelf_id = shelfId,
@@ -145,14 +153,29 @@ class BookshelvesFragment : Fragment() {
         dialog.show()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showDeleteConfirmation(bookshelf: Bookshelf) {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Delete Bookshelf")
-            .setMessage("Are you sure you want to delete \"${bookshelf.title}\"?")
-            .setPositiveButton("Delete") { _, _ ->
-                viewModel.deleteBookshelf(bookshelf.id)
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.delete_dialogue_layout, null)
+        val tvDescription = dialogView.findViewById<TextView>(R.id.tvDescription)
+        val cancelButton = dialogView.findViewById<TextView>(R.id.cancel_button)
+        val deleteButton = dialogView.findViewById<TextView>(R.id.delete_btn)
+        tvDescription.setText("Are you sure you want to delete \"${bookshelf.title}\"?")
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+        dialog.window?.setBackgroundDrawableResource(R.drawable.rounded_dialogue)
+
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        deleteButton.setOnClickListener {
+            viewModel.deleteBookshelf(bookshelf.id)
+            dialog.dismiss()
+        }
+
+
+        dialog.show()
     }
 }

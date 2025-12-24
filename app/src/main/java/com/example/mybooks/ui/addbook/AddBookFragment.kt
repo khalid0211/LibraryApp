@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Button
+import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -18,7 +19,6 @@ import com.example.mybooks.data.model.Owner
 import com.example.mybooks.data.repository.BookRepositoryImpl
 import com.example.mybooks.data.repository.BookshelfRepositoryImpl
 import com.example.mybooks.data.repository.OwnerRepositoryImpl
-import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -26,17 +26,17 @@ import java.util.Locale
 class AddBookFragment : Fragment() {
 
     private lateinit var viewModel: AddBookViewModel
-    private lateinit var titleInput: TextInputEditText
-    private lateinit var authorsInput: TextInputEditText
-    private lateinit var publisherInput: TextInputEditText
-    private lateinit var isbnInput: TextInputEditText
-    private lateinit var editionInput: TextInputEditText
-    private lateinit var pageCountInput: TextInputEditText
-    private lateinit var publishDateInput: TextInputEditText
+    private lateinit var titleInput: EditText
+    private lateinit var authorsInput: EditText
+    private lateinit var publisherInput: EditText
+    private lateinit var isbnInput: EditText
+    private lateinit var editionInput: EditText
+    private lateinit var pageCountInput: EditText
+    private lateinit var publishDateInput: EditText
     private lateinit var ownerSpinner: Spinner
     private lateinit var bookshelfSpinner: Spinner
-    private lateinit var saveButton: Button
-    private lateinit var cancelButton: Button
+    private lateinit var saveButton: TextView
+    private lateinit var cancelButton: TextView
 
     private var owners = listOf<Owner>()
     private var bookshelves = listOf<Bookshelf>()
@@ -150,35 +150,44 @@ class AddBookFragment : Fragment() {
 
         // Validation
         if (title.isEmpty()) {
-            titleInput.error = "Title is required"
+            Toast.makeText(context, "Title is required", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (isbn.isEmpty()) {
-            isbnInput.error = "ISBN is required"
+            Toast.makeText(context, "ISBN is required", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (owners.isEmpty()) {
-            Toast.makeText(context, "No owners found in database. Please add owners first.", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                context,
+                "No owners found in database. Please add owners first.",
+                Toast.LENGTH_LONG
+            ).show()
             return
         }
 
-        if (ownerSpinner.selectedItemPosition < 0) {
+        if (ownerSpinner.selectedItemPosition == -1) {
             Toast.makeText(context, "Please select an owner", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (bookshelves.isEmpty()) {
-            Toast.makeText(context, "No bookshelves found in database. Please add bookshelves first.", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                context,
+                "No bookshelves found in database. Please add bookshelves first.",
+                Toast.LENGTH_LONG
+            ).show()
             android.util.Log.e("AddBookFragment", "Bookshelves list is empty!")
             return
         }
 
-        if (bookshelfSpinner.selectedItemPosition < 0) {
+        if (bookshelfSpinner.selectedItemPosition == -1) {
             Toast.makeText(context, "Please select a bookshelf", Toast.LENGTH_SHORT).show()
             return
         }
+
 
         // Parse authors (comma-separated)
         val authorsList = if (authorsText.isEmpty()) {

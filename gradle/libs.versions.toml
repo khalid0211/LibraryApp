@@ -1,6 +1,7 @@
 [versions]
 # Gradle Plugins
 agp = "8.13.1" # Fixed: 8.13.1 does not exist yet
+glide = "5.0.5"
 kotlin = "1.9.23" # Fixed: Standard stable version
 googleServices = "4.4.1" # Added: Required for Firebase
 
@@ -14,11 +15,17 @@ activityCompose = "1.9.0"
 
 # BOMs
 composeBom = "2024.04.00" # Fixed: 2024.09 does not exist yet
-firebaseBom = "32.8.1"    # Fixed: 34.6.0 does not exist yet
+firebaseBom = "32.8.1"
+appcompat = "1.7.1"
+material = "1.13.0"
+activity = "1.12.1"
+constraintlayout = "2.2.1"    # Fixed: 34.6.0 does not exist yet
+sdpAndroid = "1.1.1"
 
 [libraries]
 # AndroidX & Testing
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -40,6 +47,11 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
 # Note: firebase-ktx is deprecated and removed. Modern Firebase libraries include KTX by default.
 
 [plugins]

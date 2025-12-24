@@ -9,7 +9,8 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Book"
+        style="@style/labelDesign"
+        android:text="@string/str_add_book"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,6 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@id/button_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,133 +32,184 @@
             android:orientation="vertical"
             android:paddingBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <TextView
+                style="@style/textFieldLabelDesign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_title" />
+
+            <EditText
+                android:id="@+id/title_input"
+                style="@style/editTextDesign"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:hint="Title *">
+                android:hint="@string/str_title"
+                android:inputType="text" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/title_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:hint="Authors (comma-separated)">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/authors_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:hint="Publisher">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/publisher_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:hint="ISBN *">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/isbn_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:hint="Edition">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edition_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:hint="Page Count">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/page_count_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:hint="Publish Date"
-                app:endIconMode="custom"
-                app:endIconDrawable="@android:drawable/ic_menu_my_calendar">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/publish_date_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:focusable="false"
-                    android:clickable="true" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:layout_width="match_parent"
+                style="@style/textFieldLabelDesign"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Owner *"
-                android:textSize="16sp" />
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_authors_comma_separated" />
 
-            <Spinner
-                android:id="@+id/owner_spinner"
+            <EditText
+                android:id="@+id/authors_input"
+                style="@style/editTextDesign"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:minHeight="48dp"
-                android:padding="12dp"
-                android:background="@android:drawable/edit_text" />
+                android:hint="@string/str_authors_comma_separated"
+                android:inputType="text" />
+
 
             <TextView
-                android:layout_width="match_parent"
+                style="@style/textFieldLabelDesign"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Bookshelf *"
-                android:textSize="16sp" />
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_publisher" />
 
-            <Spinner
-                android:id="@+id/bookshelf_spinner"
+            <EditText
+                android:id="@+id/publisher_input"
+                style="@style/editTextDesign"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:minHeight="48dp"
-                android:padding="12dp"
-                android:background="@android:drawable/edit_text" />
+                android:hint="@string/str_publisher"
+                android:inputType="text" />
+
+            <TextView
+                style="@style/textFieldLabelDesign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_isbn" />
+
+            <EditText
+                android:id="@+id/isbn_input"
+                style="@style/editTextDesign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/str_isbn"
+                android:inputType="text" />
+
+            <TextView
+                style="@style/textFieldLabelDesign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_edition" />
+
+            <EditText
+                android:id="@+id/edition_input"
+                style="@style/editTextDesign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/str_edition"
+                android:inputType="text" />
+
+            <TextView
+                style="@style/textFieldLabelDesign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_page_count" />
+
+            <EditText
+                android:id="@+id/page_count_input"
+                style="@style/editTextDesign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/str_page_count"
+                android:inputType="number" />
+
+
+            <TextView
+                style="@style/textFieldLabelDesign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_publish_date" />
+
+            <EditText
+                android:id="@+id/publish_date_input"
+                style="@style/editTextDesign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:drawableRight="@android:drawable/ic_menu_my_calendar"
+                android:focusable="false"
+                android:hint="@string/str_publish_date"
+                android:inputType="none" />
+
+
+            <TextView
+                style="@style/textFieldLabelDesign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_owner" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_field_bg">
+
+                <Spinner
+                    android:id="@+id/owner_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="16dp"
+                    android:layout_toStartOf="@+id/ivDropDownOwner"
+                    android:background="@null"
+                    android:minHeight="48dp"
+                    android:padding="12dp" />
+
+                <ImageView
+                    android:id="@+id/ivDropDownOwner"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/ic_dropdown" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/textFieldLabelDesign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/str_bookshelf" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_field_bg">
+
+                <Spinner
+                    android:id="@+id/bookshelf_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="16dp"
+                    android:layout_toStartOf="@+id/ivDropDown"
+                    android:background="@null"
+                    android:minHeight="48dp"
+                    android:padding="12dp" />
+
+                <ImageView
+                    android:id="@+id/ivDropDown"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/ic_dropdown" />
+            </RelativeLayout>
+
 
         </LinearLayout>
     </ScrollView>
@@ -171,22 +224,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <TextView
             android:id="@+id/cancel_button"
-            style="?attr/materialButtonOutlinedStyle"
+            style="@style/guestButtonDesign"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:layout_weight="1"
-            android:text="Cancel" />
+            android:text="@string/str_cancel"
+            android:textSize="@dimen/_12sdp" />
 
-        <Button
+        <TextView
             android:id="@+id/save_button"
+            style="@style/buttonDesign"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_25sdp"
             android:layout_weight="1"
-            android:text="Save Book" />
+            android:text="@string/str_save_book"
+            android:textSize="@dimen/_12sdp" />
+
 
     </LinearLayout>
 

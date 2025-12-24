@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.example.mybooks"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.mybooks"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -28,12 +28,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 
     buildFeatures {
@@ -87,10 +87,12 @@ dependencies {
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+    
 
     // Glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-
+    implementation(libs.glide)
+    implementation(libs.androidx.activity)
+    implementation(libs.sdp.android)
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/llBottom"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/llTop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:orientation="horizontal"
+                android:padding="@dimen/_15sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.4"
+                    app:cardCornerRadius="@dimen/_15sdp"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_book_sample" />
+
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_weight="0.6"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        style="@style/labelDesign"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:fontFamily="@font/raleway"
+                        android:text="@string/str_title_dots"
+                        android:textColor="@color/black_grey_light"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="normal" />
+
+
+                    <TextView
+                        android:id="@+id/bookTitle"
+                        style="@style/labelDesign"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:fontFamily="@font/raleway_semibold"
+                        android:text="Muhr e Nubuwat"
+                        android:textColor="@color/black_grey_light"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="normal" />
+
+
+                    <TextView
+                        style="@style/labelDesign"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:fontFamily="@font/raleway"
+                        android:text="@string/str_author"
+                        android:textColor="@color/black_grey_light"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="normal" />
+
+
+                    <TextView
+                        android:id="@+id/bookAuthor"
+                        style="@style/labelDesign"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:fontFamily="@font/raleway_semibold"
+                        android:text="Muhammad Sarwar"
+                        android:textColor="@color/black_grey_light"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="normal" />
+
+
+                    <TextView
+                        style="@style/labelDesign"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:fontFamily="@font/raleway"
+                        android:text="@string/str_published_year"
+                        android:textColor="@color/black_grey_light"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="normal" />
+
+
+                    <TextView
+                        android:id="@+id/bookPublishedYear"
+                        style="@style/labelDesign"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:fontFamily="@font/raleway_semibold"
+                        android:text="2023"
+                        android:textColor="@color/black_grey_light"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tvAboutThisBook"
+                style="@style/labelDesign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/llTop"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:fontFamily="@font/raleway_semibold"
+                android:text="@string/str_about_this_book"
+                android:textColor="@color/black_grey_light"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:id="@+id/bookDetails"
+                style="@style/labelDesign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvAboutThisBook"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:fontFamily="@font/raleway"
+                android:text="@string/dummy_text"
+                android:textAlignment="gravity"
+                android:textColor="@color/black_grey_light"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="normal" />
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/llBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/cancel_button"
+            style="@style/yellowButtonDesign"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:text="@string/str_read_online"
+            android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:id="@+id/save_button"
+            style="@style/buttonDesign"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_weight="1"
+            android:text="@string/str_download"
+            android:textSize="@dimen/_12sdp" />
+    </LinearLayout>
+
+</RelativeLayout>

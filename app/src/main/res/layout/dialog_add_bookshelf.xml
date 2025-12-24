@@ -3,76 +3,101 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@android:color/transparent"
     android:padding="24dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Bookshelf"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:hint="Shelf ID (number) *">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/shelf_id_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:hint="Title *">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/title_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:hint="Description">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/description_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:maxLines="3" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end">
+        android:background="@drawable/rounded_white_bg"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/cancel_button"
-            style="?attr/materialButtonOutlinedStyle"
+        <TextView
+            style="@style/labelDesign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="Cancel" />
+            android:layout_marginBottom="16dp"
+            android:text="@string/str_add_bookshelf"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/save_button"
+        <TextView
+            style="@style/textFieldLabelDesign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add" />
+            android:text="@string/str_shelf_id_number" />
+
+        <EditText
+            android:id="@+id/shelf_id_input"
+            style="@style/editTextDesign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/str_shelf_id_number"
+            android:inputType="number" />
+
+
+        <TextView
+            style="@style/textFieldLabelDesign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/str_title" />
+
+        <EditText
+            android:id="@+id/title_input"
+            style="@style/editTextDesign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/str_title"
+            android:inputType="text" />
+
+
+        <TextView
+            style="@style/textFieldLabelDesign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/str_description" />
+
+        <EditText
+            android:id="@+id/description_input"
+            style="@style/editTextDesign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/str_description"
+            android:inputType="textMultiLine"
+            android:maxLines="3" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/cancel_button"
+                style="@style/guestButtonDesign"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:text="@string/str_cancel"
+                android:textSize="@dimen/_12sdp" />
+
+            <TextView
+                android:id="@+id/save_button"
+                style="@style/buttonDesign"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:layout_weight="1"
+                android:text="@string/str_add"
+                android:textSize="@dimen/_12sdp" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

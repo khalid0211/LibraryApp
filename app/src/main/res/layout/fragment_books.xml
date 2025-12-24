@@ -7,44 +7,33 @@
 
     <TextView
         android:id="@+id/title"
+        style="@style/labelDesign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Books"
-        android:textSize="28sp"
-        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
         app:layout_constraintStart_toStartOf="parent"
+        android:text="Books"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/search_input_layout"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/add_book_button"
+        style="@style/buttonRadiusDesign"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="Search books..."
-        app:startIconDrawable="@android:drawable/ic_menu_search"
-        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/search_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLines="1" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="@dimen/_18sdp"
+        android:text="@string/str_add_new_book" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/books_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toTopOf="@id/add_book_button"
+        app:layout_constraintTop_toBottomOf="@id/add_book_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_input_layout" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/empty_state"
@@ -59,14 +48,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/books_recycler_view" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_book_button"
+    <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:contentDescription="Add Book"
-        android:src="@android:drawable/ic_input_add"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/btn_color"
+        android:layout_gravity="center|clip_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

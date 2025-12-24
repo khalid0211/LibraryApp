@@ -1,5 +1,6 @@
 package com.example.mybooks.ui.books
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,17 +17,21 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mybooks.MainActivity
 import com.example.mybooks.R
 import com.example.mybooks.data.model.Book
 import com.example.mybooks.data.model.Owner
 import com.example.mybooks.data.model.Bookshelf
 import com.example.mybooks.data.repository.BookRepositoryImpl
+import com.example.mybooks.databinding.FragmentBooksBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
@@ -34,45 +39,52 @@ import java.util.Locale
 
 class BooksFragment : Fragment() {
 
+
+    private val binding: FragmentBooksBinding by lazy { FragmentBooksBinding.inflate(layoutInflater) }
+
+
     private val db: FirebaseFirestore by lazy { Firebase.firestore }
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var emptyState: TextView
-    private lateinit var addButton: FloatingActionButton
-    private lateinit var searchEditText: EditText
     private lateinit var adapter: BooksAdapter
     private var allBooks = listOf<Book>()
     private var ownersMap = mapOf<String, String>()
     private var bookshelvesMap = mapOf<Int, String>()
+    private var mainActivity: MainActivity?=null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_books, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = view.findViewById(R.id.books_recycler_view)
-        emptyState = view.findViewById(R.id.empty_state)
-        addButton = view.findViewById(R.id.add_book_button)
-        searchEditText = view.findViewById(R.id.search_edit_text)
-
         adapter = BooksAdapter { book ->
-            showBookDetailsDialog(book)
-        }
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
+           // showBookDetailsDialog(book)
+            val gson = Gson()
+            val bookJson = gson.toJson(book)
+            val bundle= Bundle()
+            bundle.putString("data", bookJson)
 
-        addButton.setOnClickListener {
+            findNavController().navigate(R.id.navigation_book_details, bundle)
+        }
+        binding.booksRecyclerView.layoutManager = GridLayoutManager(context, 3)
+        binding.booksRecyclerView.adapter = adapter
+
+        binding.addBookButton.setOnClickListener {
             findNavController().navigate(R.id.action_books_to_add_book)
         }
 
         setupSearchFilter()
         loadBooks()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mainActivity = activity as? MainActivity
     }
 
     override fun onResume() {
@@ -81,15 +93,11 @@ class BooksFragment : Fragment() {
     }
 
     private fun setupSearchFilter() {
-        searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                filterBooks(s.toString())
+        if (mainActivity!=null){
+            mainActivity!!.onSearch { query ->
+                filterBooks(query)
             }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
+        }
     }
 
     private fun filterBooks(query: String) {
@@ -188,16 +196,17 @@ class BooksFragment : Fragment() {
 
     private fun updateBooksList(books: List<Book>) {
         if (books.isEmpty()) {
-            recyclerView.visibility = View.GONE
-            emptyState.visibility = View.VISIBLE
-            emptyState.text = if (allBooks.isEmpty()) {
+            binding.booksRecyclerView.visibility = View.GONE
+            binding.emptyState.visibility = View.VISIBLE
+            binding.emptyState.text = if (allBooks.isEmpty()) {
                 "No books yet.\nAdd your first book!"
             } else {
                 "No books match your search."
             }
         } else {
-            recyclerView.visibility = View.VISIBLE
-            emptyState.visibility = View.GONE
+            binding. booksRecyclerView.visibility = View.VISIBLE
+            binding.emptyState.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
             adapter.submitList(books)
         }
     }
@@ -365,50 +374,4 @@ class BooksFragment : Fragment() {
     }
 }
 
-class BooksAdapter(
-    private val onBookClick: (Book) -> Unit
-) : RecyclerView.Adapter<BooksAdapter.BookViewHolder>() {
 
-    private var books = listOf<Book>()
-
-    fun submitList(newBooks: List<Book>) {
-        books = newBooks
-        notifyDataSetChanged()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_book, parent, false)
-        return BookViewHolder(view, onBookClick)
-    }
-
-    override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        holder.bind(books[position])
-    }
-
-    override fun getItemCount() = books.size
-
-    class BookViewHolder(
-        itemView: View,
-        private val onBookClick: (Book) -> Unit
-    ) : RecyclerView.ViewHolder(itemView) {
-        private val titleText: TextView = itemView.findViewById(R.id.book_title)
-        private val statusText: TextView = itemView.findViewById(R.id.book_status)
-
-        fun bind(book: Book) {
-            titleText.text = book.title
-
-            if (book.is_lent) {
-                statusText.text = "On Loan"
-                statusText.setTextColor(0xFFFF9800.toInt())
-            } else {
-                statusText.text = "Available"
-                statusText.setTextColor(0xFF4CAF50.toInt())
-            }
-
-            itemView.setOnClickListener {
-                onBookClick(book)
-            }
-        }
-    }
-}
